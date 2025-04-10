@@ -1,66 +1,99 @@
-## Foundry
+#**Decentralized Raffle Smart Contract**
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This is a decentralized raffle system built on the Ethereum blockchain. Participants can enter the raffle by paying an entrance fee in ETH, and a winner is selected automatically using Chainlink's Verifiable Random Function (VRF). The contract ensures fairness, transparency, and automation through smart contract logic.
 
-Foundry consists of:
+🌟 ##**Features**
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+Entrance Fee : Users must pay a fixed entrance fee in ETH to participate.
+Random Winner Selection : Uses Chainlink VRF to generate a provably random number for selecting the winner.
+Automated Execution : Operates on a time-based interval; the winner is picked automatically when the timer expires.
+Transparent and Trustless : Fully decentralized and verifiable on-chain.
 
-## Documentation
+🛠 ##**Technologies Used**
 
-https://book.getfoundry.sh/
+Solidity : For writing the smart contract.
+Foundry : For testing, deployment, and scripting.
+Chainlink VRF : For secure and verifiable random number generation.
+Sepolia Testnet : Deployed and tested on the Sepolia Ethereum testnet.
 
-## Usage
+🚀 ##**Quick Start**
 
-### Build
+1. Prerequisites
 
-```shell
-$ forge build
+Install Foundry .
+Set up an Ethereum wallet with Sepolia testnet ETH (use a faucet like Sepolia Faucet ).
+Obtain a Chainlink VRF subscription ID and fund it with LINK tokens on Sepolia.
+
+2. Clone the Repository
+
+```bash
+git clone https://github.com/Avinesh-Git/foundry-smartcontract-raffle
+cd smart-contract-raffle
 ```
 
-### Test
+3. Set Up Environment Variables
+   Create a .env file in the root directory and add the following:
 
-```shell
-$ forge test
+```env
+SEPOLIA_RPC_URL=https://****/YOUR_INFURA_PROJECT_ID
+PRIVATE_KEY=YOUR_PRIVATE_KEY
+ETHERSCAN_API_KEY=YOUR_ETHERSCAN_API_KEY
 ```
 
-### Format
+4. Install Dependencies
+   Install any required dependencies using Foundry:
 
-```shell
-$ forge fmt
+```bash
+forge install
 ```
 
-### Gas Snapshots
+5. Run Tests
+   Run the integration tests to ensure everything works as expected:
 
-```shell
-$ forge snapshot
+```bash
+forge test
 ```
 
-### Anvil
+6. Deploy to Sepolia
+   Deploy the contract to the Sepolia testnet:
 
-```shell
-$ anvil
+```bash
+make deploy-sepolia
 ```
 
-### Deploy
+After deployment, verify the contract on Etherscan using the --verify flag.
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+📝 ##**How It Works**
+
+Participants Enter : Users send ETH to the contract to enter the raffle.
+Timer Starts : The raffle runs for a predefined interval (e.g., 30 seconds).
+Winner Selected : Once the timer expires, Chainlink VRF generates a random number to select the winner.
+Prize Distributed : The winner receives the accumulated ETH from all participants.
+
+🔧 ##**Scripts and Commands**
+
+Test : Run tests using Foundry.
+
+```bash
+forge test
 ```
 
-### Cast
+Deploy : Deploy the contract to Sepolia.
 
-```shell
-$ cast <subcommand>
+```bash
+make deploy-sepolia
 ```
 
-### Help
+**Interact : Use cast or Etherscan to interact with the deployed contract.**
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+📈 ##**Gas Optimization**
+Gas usage has been optimized where possible:
+
+Events are used instead of storing unnecessary data on-chain.
+Loops and excessive storage writes have been minimized.
+
+🛡 ##**Security**
+The contract has been tested using Foundry.
+
+📜 ##**License**
+This project is licensed under the MIT License.
