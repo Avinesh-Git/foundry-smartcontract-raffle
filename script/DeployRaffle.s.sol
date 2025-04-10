@@ -21,26 +21,12 @@ contract DeployRaffle is Script {
         HelperConfig.NetworkConfig memory config = helperConfig.getConfig();
 
         if (config.subscriptionId == 0) {
-            CreateSubscription createSubscription = new CreateSubscription(
-                helperConfig
-            );
-            (subscriptionId, ) = createSubscription.createSubscription(
-                config.vrfCoordinator,
-                config.account
-            );
+            CreateSubscription createSubscription = new CreateSubscription(helperConfig);
+            (subscriptionId,) = createSubscription.createSubscription(config.vrfCoordinator, config.account);
 
-            FundSubscription fundSubscription = new FundSubscription(
-                helperConfig
-            );
-            fundSubscription.fundSubscription(
-                config.vrfCoordinator,
-                subscriptionId,
-                config.link,
-                config.account
-            );
-            helperConfig
-                .getOrCreateAnvilEthConfig()
-                .subscriptionId = subscriptionId;
+            FundSubscription fundSubscription = new FundSubscription(helperConfig);
+            fundSubscription.fundSubscription(config.vrfCoordinator, subscriptionId, config.link, config.account);
+            helperConfig.getOrCreateAnvilEthConfig().subscriptionId = subscriptionId;
         } else {
             subscriptionId = config.subscriptionId;
         }
@@ -57,12 +43,7 @@ contract DeployRaffle is Script {
         vm.stopBroadcast();
 
         AddConsumer addConsumer = new AddConsumer(helperConfig);
-        addConsumer.addConsumer(
-            address(raffle),
-            config.vrfCoordinator,
-            subscriptionId,
-            config.account
-        );
+        addConsumer.addConsumer(address(raffle), config.vrfCoordinator, subscriptionId, config.account);
 
         return (raffle, helperConfig);
     }

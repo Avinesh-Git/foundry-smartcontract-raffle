@@ -40,26 +40,13 @@ contract integration is Test, codeConstants {
 
     function testCreateSubscriptionUsingConfig() public {
         //arrange
-        CreateSubscription createSubscription = new CreateSubscription(
-            helperConfig
-        );
+        CreateSubscription createSubscription = new CreateSubscription(helperConfig);
         //act
-        (
-            uint256 returnedSubId,
-            address returnedvrfCoordinator
-        ) = createSubscription.CreateSubscriptionUsingConfig();
+        (uint256 returnedSubId, address returnedvrfCoordinator) = createSubscription.CreateSubscriptionUsingConfig();
 
         //assert
-        assertEq(
-            returnedvrfCoordinator,
-            vrfCoordinator,
-            "incorrect vrfcoordinator address"
-        );
-        assertGt(
-            returnedSubId,
-            0,
-            "subscription id shoudl be greater than zero"
-        );
+        assertEq(returnedvrfCoordinator, vrfCoordinator, "incorrect vrfcoordinator address");
+        assertGt(returnedSubId, 0, "subscription id shoudl be greater than zero");
 
         subId = returnedSubId;
     }
